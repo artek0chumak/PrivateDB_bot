@@ -32,14 +32,16 @@ def start(message):
 
 @bot.message_handler(content_types=['text'])
 @check_user_id
-def commands(message):
-    command = ' '.join(message.text.split(' ')[:2])
+def command_use(message):
+    command = ' '.join(message.text.lower().split(' ')[:2])
     if len(message.text.split(' ')) > 2:
-        args = message.text.split(' ')[2:]
+        args = message.text.lower().split(' ')[2:]
+    else:
+        args = []
 
     if command in commands:
-        res = base.use_query(command, args)
-        bot.send_message(message.chat.id, str(res))
+        res = base.use_query(command, *args)
+        bot.send_message(message.chat.id, "\n".join(map(str, res)))
     else:
         bot.send_message(message.chat.id, 'Не прописана комманда в файле '
                                           'commands.json')

@@ -5,7 +5,6 @@
 - [python 3.6](https://www.python.org/)
     - [telebot](https://github.com/eternnoir/pyTelegramBotAPI)
     - [py-postgresql](https://pypi.org/project/py-postgresql/)
-    - [pandas](https://pandas.pydata.org/)
 
 ## Запуск
 Вместе с файлом bot.py должен находится файл config.json и  commands.json
@@ -14,6 +13,7 @@ python bot.py
 ```
 
 #### Пример config.json
+
 ```json
 {
   "token": "your_bot_token",
@@ -27,20 +27,30 @@ python bot.py
 ```
 
 #### Пример commands.json
+
 ```json
 {
-  "command_name": "select * from table where = {0}",
+  "command_name": "command body in sql",
   "insert": "insert into table values (30, {0})",
   "show": "select * from table"
 }
 ```
+
 Аргументы к командам пишутся в формате [python string](https://docs.python.org/2/library/string.html)
 
 ## Пример использования бота
 ```
 show
 
-example 100
+(1, 10)
+(2, 20)
+
+insert 100
+('INSERT', 1)
 
 show
+
+(1, 10)
+(2, 20)
+(30, 100)
 ```

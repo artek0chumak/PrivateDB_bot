@@ -1,5 +1,4 @@
 import postgresql
-import pandas as pd
 
 
 class DB:
@@ -19,5 +18,5 @@ class DB:
         self.q[name] = text
 
     def use_query(self, name, *args):
-        temp = pd.DataFrame(self.db.query(self.q[name].format(*args)))
+        temp = self.db.query(self.q[name].format(*args))
         return temp
