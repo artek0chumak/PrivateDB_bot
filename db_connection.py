@@ -1,13 +1,5 @@
 import postgresql
-import datetime
-from collections import Iterable
-
-
-def pretty_view(data):
-    if isinstance(data, datetime.datetime):
-        return data.isoformat(sep=' ', timespec='seconds')
-    else:
-        return str(data)
+from pretty_view import pretty_view
 
 
 class DB:
