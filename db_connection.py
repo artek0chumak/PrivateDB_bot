@@ -1,4 +1,13 @@
 import postgresql
+import datetime
+from collections import Iterable
+
+
+def pretty_view(data):
+    if isinstance(data, datetime.datetime):
+        return data.isoformat(sep=' ', timespec='seconds')
+    else:
+        return str(data)
 
 
 class DB:
@@ -18,5 +27,13 @@ class DB:
         self.q[name] = text
 
     def use_query(self, name, *args):
-        temp = self.db.query(self.q[name].format(*args))
-        return temp
+        result_of_querry = self.db.query(self.q[name].format(*args))
+
+        result = []
+        if result_of_querry[0] not in ('INSERT', 'DELETE', 'UPDATE'):
+            for stroke in result_of_querry:
+                result.append(tuple(map(pretty_view, stroke)))
+        else:
+            result = result_of_querry
+
+        return result

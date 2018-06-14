@@ -41,7 +41,8 @@ def command_use(message):
 
     if command in commands:
         res = base.use_query(command, *args)
-        bot.send_message(message.chat.id, "\n".join(map(str, res)))
+        bot.send_message(message.chat.id,
+                         "\n".join(' '.join(col) for col in res))
     else:
         bot.send_message(message.chat.id, 'Не прописана комманда в файле '
                                           'commands.json')
