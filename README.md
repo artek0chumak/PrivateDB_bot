@@ -7,22 +7,34 @@
     - [py-postgresql](https://pypi.org/project/py-postgresql/)
 
 ## Запуск
-Вместе с файлом bot.py должен находится файл config.json и  commands.json
+Вместе с файлом bot.py должен находится файл config.json и  commands.json! Ниже представлены их шаблоны.
 ```
 python bot.py
 ```
 
 #### Пример config.json
+Server - настройки для поключения к sql серверу. Format - настройки представления данных в сообщении.
 
 ```json
-{
-  "token": "your_bot_token",
-  "user_id": "123456789",
-  "url": "url_to_db",
-  "port": "1234",
-  "login": "login",
-  "password": "password",
-  "name": "db_name"
+{ 
+  "server" : 
+    {
+      "token": "your_bot_token",
+      "user_id": "123456789",
+      "url": "url_to_db",
+      "port": "1234",
+      "login": "login",
+      "password": "password",
+      "name": "db_name"
+    }
+  ,
+  "format" :
+    {
+      "float_point": 3,
+      "date_format": "ISO",
+      "timespec": "seconds",
+      "date_time_separator": " "
+    }
 }
 ```
 

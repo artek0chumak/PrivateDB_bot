@@ -1,5 +1,5 @@
 import postgresql
-from pretty_view import pretty_view
+from pretty_view import PrettyView
 
 
 class DB:
@@ -14,6 +14,7 @@ class DB:
             "pq://{0}:{1}@{2}:{3}/{4}".format(login, password, url,
                                               port, name))
         self.q = dict()
+        self.pretty_view = PrettyView()
 
     def create_query(self, name, text):
         self.q[name] = text
@@ -24,7 +25,7 @@ class DB:
         result = []
         if result_of_querry[0] not in ('INSERT', 'DELETE', 'UPDATE'):
             for stroke in result_of_querry:
-                result.append(tuple(map(pretty_view, stroke)))
+                result.append(tuple(map(self.pretty_view, stroke)))
         else:
             result = result_of_querry
 
