@@ -1,6 +1,5 @@
 import telebot
 import json
-import time
 from db_connection import DB
 from collections import Iterable
 
@@ -54,12 +53,4 @@ def command_use(message):
 
 
 if __name__ == '__main__':
-    while True:
-        try:
-            bot.polling(none_stop=True)
-        except KeyboardInterrupt as e:
-            raise e
-        except telebot.apihelper.ApiException as e:
-            time.sleep(10)
-        except Exception as e:
-            raise e
+    bot.polling(none_stop=True, timeout=120)
