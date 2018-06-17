@@ -4,7 +4,7 @@ import time
 from db_connection import DB
 
 with open("config.json", 'r') as f:
-    config = json.load(f)
+    config = json.load(f)["server"]
 with open("commands.json", 'r') as f:
     commands = json.load(f)
 
