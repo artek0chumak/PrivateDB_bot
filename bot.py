@@ -2,6 +2,7 @@ import telebot
 import json
 import time
 from db_connection import DB
+from collections import Iterable
 
 with open("config.json", 'r') as f:
     config = json.load(f)["server"]
@@ -42,8 +43,11 @@ def command_use(message):
 
     if command in commands:
         res = base.use_query(command, *args)
-        bot.send_message(message.chat.id,
-                         "\n".join(' '.join(col) for col in res))
+        if all(isinstance(i, Iterable) for i in res):
+            bot.send_message(message.chat.id,
+                             "\n".join(' '.join(col) for col in res))
+        else:
+            bot.send_message(message.chat.id, ' '.join(res))
     else:
         bot.send_message(message.chat.id, 'Не прописана комманда в файле '
                                           'commands.json')
