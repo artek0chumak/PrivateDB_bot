@@ -1,5 +1,6 @@
 import telebot
 import json
+import time
 from db_connection import DB
 
 with open("config.json", 'r') as f:
@@ -49,4 +50,10 @@ def command_use(message):
 
 
 if __name__ == '__main__':
-    bot.polling()
+    while True:
+        try:
+            bot.polling(none_stop=True)
+        except telebot.apihelper.ApiException as e:
+            time.sleep(10)
+        except Exception as e:
+            raise e
