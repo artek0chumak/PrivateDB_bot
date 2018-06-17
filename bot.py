@@ -1,23 +1,27 @@
 import telebot
 import json
-from db_connection import DB
+from db_connection import Postgres, Sqlite3
 from collections import Iterable
 
 with open("config.json", 'r') as f:
-    config = json.load(f)["server"]
+    config_bot = json.load(f)["bot"]
+    config_server = json.load(f)["server"]
 with open("commands.json", 'r') as f:
     commands = json.load(f)
 
-bot = telebot.TeleBot(config['token'])
-base = DB(config["url"], config["port"], config["login"], config["password"],
-          config["name"])
+bot = telebot.TeleBot(config_bot['token'])
+if config_server["type"] == 'postgresql':
+    base = Postgres(config_server["url"], config_server["port"], config_server["login"],
+              config_server["password"], config_server["name"])
+elif config_bot["type"] == 'sqlite3':
+    base = Sqlite3(config_server["filepath"], config_server["name"])
 for command in commands:
     base.create_query(command, commands[command])
 
 
 def check_user_id(function):
     def wrapper(message):
-        if message.chat.id != config['user_id']:
+        if message.chat.id != config_bot['user_id']:
             bot.send_message(message.chat.id, 'Вы не можете использовать бота!')
         else:
             function(message)
