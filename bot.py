@@ -47,7 +47,7 @@ def command_use(message):
             bot.send_message(message.chat.id,
                              "\n".join(' '.join(col) for col in res))
         else:
-            bot.send_message(message.chat.id, ' '.join(res))
+            bot.send_message(message.chat.id, ' '.join(map(str,res)))
     else:
         bot.send_message(message.chat.id, 'Не прописана комманда в файле '
                                           'commands.json')
